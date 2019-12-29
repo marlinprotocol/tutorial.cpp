@@ -9,6 +9,7 @@ public:
 	void did_recv_message(
 		DefaultMulticastClient<MulticastDelegate> &client,
 		Buffer &&message,
+		Buffer &&witness,
 		std::string &channel,
 		uint64_t message_id
 	) {}
@@ -25,9 +26,14 @@ public:
 };
 
 int main() {
+	uint8_t static_sk1[crypto_box_SECRETKEYBYTES];
+	uint8_t static_pk1[crypto_box_PUBLICKEYBYTES];
+	crypto_box_keypair(static_pk1, static_sk1);
+
 	MulticastDelegate del;
 
 	DefaultMulticastClientOptions clop1 {
+		static_sk1,
 		{"goldfish"},
 		"127.0.0.1:9002"
 	};
