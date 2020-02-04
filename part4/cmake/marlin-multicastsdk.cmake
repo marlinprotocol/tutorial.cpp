@@ -1,14 +1,22 @@
-find_package(MarlinMulticastSDK QUIET)
-if(NOT MarlinMulticastSDK_FOUND)
-	message("-- MarlinMulticastSDK not found. Using internal MarlinMulticastSDK.")
+find_package(marlinMulticastSDK QUIET)
+if(NOT marlinMulticastSDK_FOUND)
+	message("-- marlinMulticastSDK not found. Using internal marlinMulticastSDK.")
 	include(FetchContent)
-	FetchContent_Declare(MarlinMulticastSDK
-		GIT_REPOSITORY https://gitlab.com/marlinprotocol/multicastsdk.cpp.git
+	FetchContent_Declare(marlinMulticastSDK
+		GIT_REPOSITORY https://gitlab.com/marlinprotocol/marlin.cpp.git
 		GIT_TAG master
 	)
-	FetchContent_MakeAvailable(MarlinMulticastSDK)
 
-	add_library(Marlin::multicastsdk ALIAS multicastsdk)
+	# Check if population has already been performed
+	FetchContent_GetProperties(marlinMulticastSDK)
+	string(TOLOWER "marlinMulticastSDK" lcName)
+	if(NOT ${lcName}_POPULATED)
+		# Fetch the content using previously declared details
+		FetchContent_Populate(marlinMulticastSDK)
+
+		# Bring the populated content into the build
+		add_subdirectory(${${lcName}_SOURCE_DIR} ${${lcName}_BINARY_DIR} EXCLUDE_FROM_ALL)
+	endif()
 else()
-	message("-- MarlinMulticastSDK found. Using system MarlinMulticastSDK.")
+	message("-- marlinMulticastSDK found. Using system marlinMulticastSDK.")
 endif()

@@ -23,13 +23,16 @@ public:
 		DefaultMulticastClient<MulticastDelegate> &client,
 		std::string &channel
 	) {
+		SPDLOG_INFO("Did subscribe to channel {}", channel);
 		client.ps.send_message_on_channel(channel, "Hello!", 6);
 	}
 
 	void did_unsubscribe(
 		DefaultMulticastClient<MulticastDelegate> &client,
 		std::string &channel
-	) {}
+	) {
+		SPDLOG_INFO("Did unsubscribe from channel {}", channel);
+	}
 };
 
 int main() {

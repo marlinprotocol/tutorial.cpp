@@ -17,12 +17,16 @@ public:
 	void did_subscribe(
 		DefaultMulticastClient<MulticastDelegate> &client,
 		std::string &channel
-	) {}
+	) {
+		SPDLOG_INFO("Did subscribe to channel {}", channel);
+	}
 
 	void did_unsubscribe(
 		DefaultMulticastClient<MulticastDelegate> &client,
 		std::string &channel
-	) {}
+	) {
+		SPDLOG_INFO("Did unsubscribe from channel {}", channel);
+	}
 };
 
 int main() {

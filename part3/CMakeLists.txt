@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 3.11 FATAL_ERROR)
+cmake_minimum_required(VERSION 3.13 FATAL_ERROR)
 project(tutorial VERSION 0.0.1 LANGUAGES CXX)
 
 add_executable(tutorial
@@ -7,4 +7,4 @@ add_executable(tutorial
 
 # MarlinMulticastSDK
 include("${CMAKE_CURRENT_LIST_DIR}/cmake/marlin-multicastsdk.cmake")
-target_link_libraries(tutorial PUBLIC Marlin::multicastsdk)
+target_link_libraries(tutorial PUBLIC marlin::multicastsdk)
